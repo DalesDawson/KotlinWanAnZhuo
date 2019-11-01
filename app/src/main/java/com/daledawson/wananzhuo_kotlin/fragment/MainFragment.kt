@@ -4,8 +4,6 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
-import com.daledawson.wananzhuo_kotlin.adapter.HomeListAdapter
 import com.daledawson.wananzhuo_kotlin.adapter.HomeListAdapter2
 import com.daledawson.wananzhuo_kotlin.base.BaseFragment
 import com.daledawson.wananzhuo_kotlin.bean.BannerData
@@ -15,6 +13,9 @@ import kotlinx.android.synthetic.main.fragment_main.*
 import com.daledawson.wananzhuo_kotlin.bean.ArticleData
 import com.daledawson.wananzhuo_kotlin.bean.DataX
 import com.daledawson.wananzhuo_kotlin.fragment.GlideImageLoader
+import com.jcodecraeer.xrecyclerview.XRecyclerView
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
 import kotlin.collections.ArrayList
 
 
@@ -24,32 +25,53 @@ import kotlin.collections.ArrayList
  * 修改时间：
  * 修改备注：
  */
-class MainFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener,RecyclerView.OnScrollListener{
-    override fun onRefresh() {
-        home_swipeRefreshLayout.isRefreshing = false
-        initData()
-    }
+class MainFragment : BaseFragment() {
 
     var images: MutableList<String> = ArrayList()
     var list: MutableList<DataX> = ArrayList()
     lateinit var adapter: HomeListAdapter2
     override fun getLayoutId(): Int = R.layout.fragment_main
-    var pageIndex:Int=0
+    var pageIndex: Int = 0
 
 
     override fun initView() {
         home_recyclerView.layoutManager = LinearLayoutManager(context)
         home_recyclerView.setHasFixedSize(true)
-        home_recyclerView.setNestedScrollingEnabled(false)
-        home_recyclerView.setOnScrollChangeListener()
+        home_recyclerView.isNestedScrollingEnabled = false
+        home_recyclerView.setLoadingListener(object : XRecyclerView.LoadingListener {
+            override fun onLoadMore() {
+                pageIndex++
+                getArticleList(pageIndex)
+            }
+
+            override fun onRefresh() {
+                pageIndex = 0
+                getArticleList(pageIndex)
+            }
+        })
+
+        home_refreshLayout.setOnRefreshListener(object : RefreshListenerAdapter() {
+            override fun onRefresh(refreshLayout: TwinklingRefreshLayout?) {
+                super.onRefresh(refreshLayout)
+                pageIndex = 0
+                getBannerList()
+                getArticleList(pageIndex)
+            }
+
+            override fun onLoadMore(refreshLayout: TwinklingRefreshLayout?) {
+                super.onLoadMore(refreshLayout)
+                pageIndex++
+                getArticleList(pageIndex)
+            }
+        })
     }
 
     override fun initData() {
         getBannerList()
-        getArticalList(pageIndex)
+        getArticleList(pageIndex)
     }
 
-    fun getBannerList() {
+    private fun getBannerList() {
         Okkt.instance.Builder().setUrl(Api.BANNER_LIST).get(object : CallbackRule<BannerData> {
             override suspend fun onSuccess(entity: BannerData, flag: String) {
                 Log.d("bbbbb", entity.toString())
@@ -66,7 +88,7 @@ class MainFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener,Recycl
         })
     }
 
-    fun getArticalList(pageIndex: Int) {
+    private fun getArticleList(pageIndex: Int) {
         Okkt.instance.Builder().setUrl(Api.HOME_LIST + "$pageIndex" + "/json")
             .get(object : CallbackRule<ArticleData> {
                 override suspend fun onFailed(error: String) {
@@ -74,7 +96,11 @@ class MainFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener,Recycl
 
                 override suspend fun onSuccess(entity: ArticleData, flag: String) {
                     Log.d("aaaaa", entity.data.datas.toString())
-                    list = entity.data.datas
+                    if (pageIndex == 0) {
+                        list = entity.data.datas
+                    } else {
+                        list.addAll(entity.data.datas)
+                    }
                     adapter = HomeListAdapter2(list)
                     home_recyclerView.adapter = adapter
                     adapter.notifyDataSetChanged()

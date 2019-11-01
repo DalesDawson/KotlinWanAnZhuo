@@ -2,11 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_marginBottom="40dp"
     android:layout_height="match_parent">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/home_swipeRefreshLayout"
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        android:id="@+id/home_refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -17,27 +16,22 @@
             android:layout_height="match_parent">
 
             <RelativeLayout
-                android:background="@color/colorEee"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <com.youth.banner.Banner
                     android:id="@+id/home_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" />
+                    android:layout_height="200dp"
+                    android:padding="5dp" />
 
-                <RelativeLayout
+                <com.jcodecraeer.xrecyclerview.XRecyclerView
+                    android:id="@+id/home_recyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/home_banner">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/home_recyclerView"
-                        android:layout_width="match_parent"
-                        android:nestedScrollingEnabled="false"
-                        android:layout_height="match_parent" />
-                </RelativeLayout>
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/home_banner"
+                    android:nestedScrollingEnabled="false" />
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
