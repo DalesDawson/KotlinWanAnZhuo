@@ -1,10 +1,12 @@
 package com.daledawson.wananzhuo_kotlin
 
+import android.content.Intent
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.daledawson.wananzhuo_kotlin.adapter.HomeListAdapter2
+import com.daledawson.wananzhuo_kotlin.activity.CommonWebViewActivity
+import com.daledawson.wananzhuo_kotlin.activity.HomeActivity
+import com.daledawson.wananzhuo_kotlin.adapter.HomeListAdapter
+import com.daledawson.wananzhuo_kotlin.base.BaseAdapter
 import com.daledawson.wananzhuo_kotlin.base.BaseFragment
 import com.daledawson.wananzhuo_kotlin.bean.BannerData
 import com.stormkid.okhttpkt.core.Okkt
@@ -12,11 +14,14 @@ import com.stormkid.okhttpkt.rule.CallbackRule
 import kotlinx.android.synthetic.main.fragment_main.*
 import com.daledawson.wananzhuo_kotlin.bean.ArticleData
 import com.daledawson.wananzhuo_kotlin.bean.DataX
-import com.daledawson.wananzhuo_kotlin.fragment.GlideImageLoader
+import com.daledawson.wananzhuo_kotlin.util.GlideImageLoader
 import com.jcodecraeer.xrecyclerview.XRecyclerView
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
 import kotlin.collections.ArrayList
+import com.daledawson.wananzhuo_kotlin.activity.MainActivity
+import com.daledawson.wananzhuo_kotlin.bean.Data
+import com.youth.banner.listener.OnBannerListener
 
 
 /**
@@ -28,8 +33,9 @@ import kotlin.collections.ArrayList
 class MainFragment : BaseFragment() {
 
     var images: MutableList<String> = ArrayList()
+    var bannerList: MutableList<Data> = ArrayList()
     var list: MutableList<DataX> = ArrayList()
-    lateinit var adapter: HomeListAdapter2
+    lateinit var adapter: HomeListAdapter
     override fun getLayoutId(): Int = R.layout.fragment_main
     var pageIndex: Int = 0
 
@@ -38,6 +44,9 @@ class MainFragment : BaseFragment() {
         home_recyclerView.layoutManager = LinearLayoutManager(context)
         home_recyclerView.setHasFixedSize(true)
         home_recyclerView.isNestedScrollingEnabled = false
+        adapter = HomeListAdapter(context!!, R.layout.home_list_item, list)
+        home_recyclerView.adapter = adapter
+
         home_recyclerView.setLoadingListener(object : XRecyclerView.LoadingListener {
             override fun onLoadMore() {
                 pageIndex++
@@ -49,21 +58,39 @@ class MainFragment : BaseFragment() {
                 getArticleList(pageIndex)
             }
         })
-
+        home_refreshLayout.setTargetView(home_scrollView)
         home_refreshLayout.setOnRefreshListener(object : RefreshListenerAdapter() {
             override fun onRefresh(refreshLayout: TwinklingRefreshLayout?) {
                 super.onRefresh(refreshLayout)
                 pageIndex = 0
+                images.clear()
+                list.clear()
                 getBannerList()
                 getArticleList(pageIndex)
+                home_refreshLayout.finishRefreshing()
             }
 
             override fun onLoadMore(refreshLayout: TwinklingRefreshLayout?) {
                 super.onLoadMore(refreshLayout)
                 pageIndex++
                 getArticleList(pageIndex)
+                home_refreshLayout.finishLoadmore()
             }
         })
+        adapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                var intent = Intent(context, CommonWebViewActivity::class.java)
+                intent.putExtra(CommonWebViewActivity.LINK, list[position].link)
+                startActivity(intent)
+            }
+
+        })
+
+        home_banner.setOnBannerListener {
+            var intent = Intent(context, CommonWebViewActivity::class.java)
+            intent.putExtra(CommonWebViewActivity.LINK, bannerList[it].url)
+            startActivity(intent)
+        }
     }
 
     override fun initData() {
@@ -75,6 +102,7 @@ class MainFragment : BaseFragment() {
         Okkt.instance.Builder().setUrl(Api.BANNER_LIST).get(object : CallbackRule<BannerData> {
             override suspend fun onSuccess(entity: BannerData, flag: String) {
                 Log.d("bbbbb", entity.toString())
+                bannerList = entity.data
                 for (item in entity.data) {
                     images.add(item.imagePath)
                     Log.d("url", item.imagePath)
@@ -96,14 +124,15 @@ class MainFragment : BaseFragment() {
 
                 override suspend fun onSuccess(entity: ArticleData, flag: String) {
                     Log.d("aaaaa", entity.data.datas.toString())
+                    Log.d("aaaaa", "pageIndex$pageIndex")
                     if (pageIndex == 0) {
                         list = entity.data.datas
                     } else {
                         list.addAll(entity.data.datas)
                     }
-                    adapter = HomeListAdapter2(list)
-                    home_recyclerView.adapter = adapter
+                    adapter.addListData(list, false)
                     adapter.notifyDataSetChanged()
+
                 }
             })
     }

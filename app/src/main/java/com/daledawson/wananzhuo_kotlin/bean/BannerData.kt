@@ -7,7 +7,7 @@ package com.daledawson.wananzhuo_kotlin.bean
  * 修改备注：
  */
 data class BannerData(
-    val `data`: List<Data>,
+    val `data`: MutableList<Data>,
     val errorCode: Int,
     val errorMsg: String
 )
