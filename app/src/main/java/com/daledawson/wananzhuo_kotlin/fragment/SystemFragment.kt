@@ -34,8 +34,17 @@ class SystemFragment : BaseFragment() {
         systemRecyclerView.setHasFixedSize(true)
         systemRecyclerView.isNestedScrollingEnabled = false
         adapter = SystemAdapter(context!!, R.layout.system_list_item, list)
-
         systemRecyclerView.adapter = adapter
+        systemRecyclerView.setLoadingMoreEnabled(false)
+
+        systemRecyclerView.setLoadingListener(object : XRecyclerView.LoadingListener {
+            override fun onLoadMore() {
+            }
+
+            override fun onRefresh() {
+                getSystemList()
+            }
+        })
     }
 
     override fun initData() {
@@ -46,12 +55,14 @@ class SystemFragment : BaseFragment() {
         Okkt.instance.Builder().setUrl(Api.KNOWLEDGE_TREE).get(object : CallbackRule<SystemData> {
             override suspend fun onSuccess(entity: SystemData, flag: String) {
                 Log.d("system", entity.toString())
+                systemRecyclerView.refreshComplete()
                 list = entity.data
                 adapter.addListData(list, false)
                 adapter.notifyDataSetChanged()
             }
 
             override suspend fun onFailed(error: String) {
+                systemRecyclerView.refreshComplete()
                 Toast.makeText(context, error, Toast.LENGTH_LONG)
             }
 

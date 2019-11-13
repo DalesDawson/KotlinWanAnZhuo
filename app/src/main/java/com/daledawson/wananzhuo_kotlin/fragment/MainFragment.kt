@@ -47,17 +47,17 @@ class MainFragment : BaseFragment() {
         adapter = HomeListAdapter(context!!, R.layout.home_list_item, list)
         home_recyclerView.adapter = adapter
 
-        home_recyclerView.setLoadingListener(object : XRecyclerView.LoadingListener {
-            override fun onLoadMore() {
-                pageIndex++
-                getArticleList(pageIndex)
-            }
-
-            override fun onRefresh() {
-                pageIndex = 0
-                getArticleList(pageIndex)
-            }
-        })
+//        home_recyclerView.setLoadingListener(object : XRecyclerView.LoadingListener {
+//            override fun onLoadMore() {
+//                pageIndex++
+//                getArticleList(pageIndex)
+//            }
+//
+//            override fun onRefresh() {
+//                pageIndex = 0
+//                getArticleList(pageIndex)
+//            }
+//        })
         home_refreshLayout.setTargetView(home_scrollView)
         home_refreshLayout.setOnRefreshListener(object : RefreshListenerAdapter() {
             override fun onRefresh(refreshLayout: TwinklingRefreshLayout?) {
@@ -67,14 +67,12 @@ class MainFragment : BaseFragment() {
                 list.clear()
                 getBannerList()
                 getArticleList(pageIndex)
-                home_refreshLayout.finishRefreshing()
             }
 
             override fun onLoadMore(refreshLayout: TwinklingRefreshLayout?) {
                 super.onLoadMore(refreshLayout)
                 pageIndex++
                 getArticleList(pageIndex)
-                home_refreshLayout.finishLoadmore()
             }
         })
         adapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener {
@@ -101,6 +99,8 @@ class MainFragment : BaseFragment() {
     private fun getBannerList() {
         Okkt.instance.Builder().setUrl(Api.BANNER_LIST).get(object : CallbackRule<BannerData> {
             override suspend fun onSuccess(entity: BannerData, flag: String) {
+                home_refreshLayout.finishRefreshing()
+                home_refreshLayout.finishRefreshing()
                 Log.d("bbbbb", entity.toString())
                 bannerList = entity.data
                 for (item in entity.data) {
@@ -111,6 +111,7 @@ class MainFragment : BaseFragment() {
             }
 
             override suspend fun onFailed(error: String) {
+                home_refreshLayout.finishRefreshing()
             }
 
         })
@@ -120,9 +121,13 @@ class MainFragment : BaseFragment() {
         Okkt.instance.Builder().setUrl(Api.HOME_LIST + "$pageIndex" + "/json")
             .get(object : CallbackRule<ArticleData> {
                 override suspend fun onFailed(error: String) {
+                    home_refreshLayout.finishRefreshing()
+                    home_refreshLayout.finishLoadmore()
                 }
 
                 override suspend fun onSuccess(entity: ArticleData, flag: String) {
+                    home_refreshLayout.finishRefreshing()
+                    home_refreshLayout.finishLoadmore()
                     Log.d("aaaaa", entity.data.datas.toString())
                     Log.d("aaaaa", "pageIndex$pageIndex")
                     if (pageIndex == 0) {
