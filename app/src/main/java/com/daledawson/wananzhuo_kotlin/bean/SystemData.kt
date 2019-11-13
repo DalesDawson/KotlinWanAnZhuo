@@ -1,7 +1,29 @@
 package com.daledawson.wananzhuo_kotlin.bean
 
 data class SystemData(
-    val `data`: List<Data>,
+    val `data`: MutableList<SystemChildData>,
     val errorCode: Int,
     val errorMsg: String
+)
+
+data class SystemChildData(
+    val children: MutableList<Children>,
+    val courseId: Int,
+    val id: Int,
+    val name: String,
+    val order: Int,
+    val parentChapterId: Int,
+    val userControlSetTop: Boolean,
+    val visible: Int
+)
+
+data class Children(
+    val children2: MutableList<Any>,
+    val courseId: Int,
+    val id: Int,
+    val name: String,
+    val order: Int,
+    val parentChapterId: Int,
+    val userControlSetTop: Boolean,
+    val visible: Int
 )

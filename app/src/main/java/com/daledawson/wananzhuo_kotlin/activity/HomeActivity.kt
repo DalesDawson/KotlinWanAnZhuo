@@ -12,6 +12,15 @@ import com.daledawson.kotlin_kaiyan.fragment.SystemFragment
 import com.daledawson.wananzhuo_kotlin.MainFragment
 import com.daledawson.wananzhuo_kotlin.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.view.WindowManager
+import android.annotation.TargetApi
+import android.graphics.Color
+import android.os.Build
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.view.View
+
 
 /**
  * 创 建 人：zhengquan
@@ -37,6 +46,16 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         setContentView(R.layout.activity_home)
         bottomNavigationView = findViewById(R.id.home_BottomView)
         initFragments()
+
+        if (Build.VERSION.SDK_INT > 21) {
+            getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
+            getWindow().setStatusBarColor(Color.TRANSPARENT)
+        } else {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        }
     }
 
     //初始化
@@ -49,7 +68,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         mineFragment = MineFragment()
         projectFragment = ProjectFragment()
         fragmentList = arrayOf(
-            mainFragment!!, systemFragment!!,searchFragment!!, projectFragment!!, mineFragment!!
+            mainFragment!!, systemFragment!!, searchFragment!!, projectFragment!!, mineFragment!!
         )
         lastSelectedPosition = 0
         //默认提交第一个

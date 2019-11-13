@@ -1,7 +1,11 @@
 package com.daledawson.wananzhuo_kotlin.activity
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.daledawson.wananzhuo_kotlin.R
 import kotlinx.android.synthetic.main.activity_web.*
@@ -25,9 +29,19 @@ class CommonWebViewActivity : AppCompatActivity() {
         val intent = intent
         if (intent != null) {
             url = intent.getStringExtra(LINK)
-            if (TextUtils.isEmpty(url)) {
+            if (!TextUtils.isEmpty(url)) {
                 web_view.loadUrl(url)
             }
+        }
+
+        if (Build.VERSION.SDK_INT > 21) {
+            getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        or View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
+            getWindow().setStatusBarColor(Color.TRANSPARENT)
+        } else {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
         }
     }
 }

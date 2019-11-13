@@ -9,4 +9,6 @@
     <color name="colorGreyLight">#EEEEEE</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorEee">#eeeeee</color>
+    <color name="transparent">#00000000</color>
+    <color name="colorGray">#616161</color>
 </resources>

@@ -1,4 +1,4 @@
-package com.daledawson.wananzhuo_kotlin.bean
+package com.daledawson.wananzhuo_kotlin.view
 
 import android.content.Context
 import android.util.AttributeSet

@@ -1,6 +1,7 @@
 package com.daledawson.wananzhuo_kotlin.adapter
 
 import android.content.Context
+import android.widget.ImageView
 import android.widget.TextView
 import com.daledawson.wananzhuo_kotlin.R
 import com.daledawson.wananzhuo_kotlin.base.BaseAdapter
@@ -23,5 +24,6 @@ class HomeListAdapter(ctx: Context, layoutRes: Int, mData: MutableList<DataX>) :
         holder.getView<TextView>(R.id.tv_home_list_item_title).text = this.mData[position].title
         holder.getView<TextView>(R.id.tv_home_list_item_type).text =
             this.mData[position].superChapterName
+        holder.getView<ImageView>(R.id.iv_home_list_item_like).setImageResource(R.mipmap.icon_like_normal)
     }
 }

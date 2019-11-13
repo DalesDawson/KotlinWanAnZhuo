@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:gravity="center">
 
     <TextView
         android:id="@+id/tv_mv_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/mv_type_selector_view_item_bg"
-        android:clickable="true"
-        android:focusable="true"
-        android:textColor="@color/white"
-        android:textSize="@dimen/w_32"
+        android:padding="5dp"
+        android:background="@drawable/system_child_bg"
+        android:layout_marginLeft="5dp"
+        android:textColor="@color/colorGray"
         tools:text="全部" />
-
-
 </RelativeLayout>
