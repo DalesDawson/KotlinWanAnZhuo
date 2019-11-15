@@ -11,9 +11,7 @@ import com.daledawson.wananzhuo_kotlin.R
  * 修改备注：
  */
 class MineFragment : BaseFragment() {
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_mine
-    }
+    override fun getLayoutId(): Int = R.layout.fragment_mine
 
     override fun initView() {
     }

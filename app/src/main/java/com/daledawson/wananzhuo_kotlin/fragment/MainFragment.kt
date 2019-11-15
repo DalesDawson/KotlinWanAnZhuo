@@ -77,15 +77,21 @@ class MainFragment : BaseFragment() {
         })
         adapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
-                var intent = Intent(context, CommonWebViewActivity::class.java)
+                val intent = Intent(context, CommonWebViewActivity::class.java)
                 intent.putExtra(CommonWebViewActivity.LINK, list[position].link)
                 startActivity(intent)
             }
 
         })
 
+        adapter.setOnItemLongClickListener(object :BaseAdapter.OnItemLongClickListener{
+            override fun onItemLongClick(position: Int): Boolean {
+            }
+
+        })
+
         home_banner.setOnBannerListener {
-            var intent = Intent(context, CommonWebViewActivity::class.java)
+            val intent = Intent(context, CommonWebViewActivity::class.java)
             intent.putExtra(CommonWebViewActivity.LINK, bannerList[it].url)
             startActivity(intent)
         }

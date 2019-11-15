@@ -1,9 +1,6 @@
 package com.daledawson.wananzhuo_kotlin.activity
 
-import android.os.Bundle
 import android.view.MenuItem
-import android.widget.FrameLayout
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.daledawson.kotlin_kaiyan.fragment.SearchFragment
 import com.daledawson.kotlin_kaiyan.fragment.MineFragment
@@ -12,14 +9,9 @@ import com.daledawson.kotlin_kaiyan.fragment.SystemFragment
 import com.daledawson.wananzhuo_kotlin.MainFragment
 import com.daledawson.wananzhuo_kotlin.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import android.view.WindowManager
-import android.annotation.TargetApi
-import android.graphics.Color
-import android.os.Build
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.view.View
+import com.daledawson.wananzhuo_kotlin.base.BaseActivity
+import com.gyf.immersionbar.ImmersionBar
+import kotlinx.android.synthetic.main.activity_home.*
 
 
 /**
@@ -28,40 +20,31 @@ import android.view.View
  * 修改时间：
  * 修改备注：
  */
-class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     var TAG: String = "HomeActivity"
-    var fragmentList: Array<Fragment>? = null
-    var bottomNavigationView: BottomNavigationView? = null
-    var container: FrameLayout? = null
-    var mainFragment: MainFragment? = null
-    var searchFragment: SearchFragment? = null
-    var systemFragment: SystemFragment? = null
-    var mineFragment: MineFragment? = null
-    var projectFragment: ProjectFragment? = null
+    private var fragmentList: Array<Fragment>? = null
+    private var mainFragment: MainFragment? = null
+    private var searchFragment: SearchFragment? = null
+    private var systemFragment: SystemFragment? = null
+    private var mineFragment: MineFragment? = null
+    private var projectFragment: ProjectFragment? = null
     //默认选择第一个fragment
     var lastSelectedPosition = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
-        bottomNavigationView = findViewById(R.id.home_BottomView)
-        initFragments()
-
-        if (Build.VERSION.SDK_INT > 21) {
-            getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
-            getWindow().setStatusBarColor(Color.TRANSPARENT)
-        } else {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-        }
+    override fun initView() {
+        ImmersionBar.with(this).titleBar(R.id.toolbar).init()
     }
+
+    override fun initData() {
+        initFragments()
+    }
+
+    override fun getLayoutId(): Int = R.layout.activity_home2
 
     //初始化
     private fun initFragments() {
         //监听切换事件
-        bottomNavigationView?.setOnNavigationItemSelectedListener(this)
+        home_BottomView?.setOnNavigationItemSelectedListener(this)
         mainFragment = MainFragment()
         systemFragment = SystemFragment()
         searchFragment = SearchFragment()
@@ -72,7 +55,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         )
         lastSelectedPosition = 0
         //默认提交第一个
-        getSupportFragmentManager()
+        supportFragmentManager
             .beginTransaction()
             .add(R.id.container_Fl, mainFragment!!)//添加
             .show(mainFragment!!)//展示
@@ -126,11 +109,12 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
      * @param index     需要显示的Fragment的索引
      */
     private fun setDefaultFragment(lastIndex: Int, index: Int) {
-        var transaction = supportFragmentManager.beginTransaction()
+        val transaction = supportFragmentManager.beginTransaction()
         fragmentList?.get(lastIndex)?.let { transaction.hide(it) }
-        if (!fragmentList?.get(index)?.isAdded()!!) {
+        if (!fragmentList?.get(index)?.isAdded!!) {
             transaction.add(R.id.container_Fl, fragmentList!![index])
         }
         transaction.show(fragmentList!![index]).commit()
     }
+
 }

@@ -1,5 +1,6 @@
 package com.daledawson.kotlin_kaiyan.fragment
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,7 +24,6 @@ import kotlinx.android.synthetic.main.fragment_system.*
  */
 class SystemFragment : BaseFragment() {
     var list: MutableList<SystemChildData> = ArrayList()
-    var childList: MutableList<String> = ArrayList()
     lateinit var adapter: SystemAdapter
     override fun getLayoutId(): Int {
         return R.layout.fragment_system
@@ -61,6 +61,7 @@ class SystemFragment : BaseFragment() {
                 adapter.notifyDataSetChanged()
             }
 
+            @SuppressLint("ShowToast")
             override suspend fun onFailed(error: String) {
                 systemRecyclerView.refreshComplete()
                 Toast.makeText(context, error, Toast.LENGTH_LONG)
