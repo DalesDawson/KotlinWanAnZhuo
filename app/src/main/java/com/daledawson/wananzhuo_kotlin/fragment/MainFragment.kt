@@ -86,6 +86,7 @@ class MainFragment : BaseFragment() {
 
         adapter.setOnItemLongClickListener(object :BaseAdapter.OnItemLongClickListener{
             override fun onItemLongClick(position: Int): Boolean {
+                return false
             }
 
         })
