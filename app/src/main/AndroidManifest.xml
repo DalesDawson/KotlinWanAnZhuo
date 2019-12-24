@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.CommonWebViewActivity" />
+        <activity android:name=".activity.SystemListActivity" />
     </application>
 
 </manifest>

@@ -1,7 +1,12 @@
 package com.daledawson.kotlin_kaiyan.fragment
 
+import android.opengl.Visibility
+import android.view.ActionProvider
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import com.daledawson.wananzhuo_kotlin.base.BaseFragment
 import com.daledawson.wananzhuo_kotlin.R
+import kotlinx.android.synthetic.main.fragment_search.*
 
 
 /**
@@ -16,6 +21,11 @@ class SearchFragment : BaseFragment() {
     }
 
     override fun initView() {
+//        search_view.setOnCloseListener(object :SearchView.OnCloseListener{
+//            override fun onClose(): Boolean {
+//            }
+//
+//        })
     }
 
     override fun initData() {

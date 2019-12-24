@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
  * 修改备注：
  */
 abstract class BaseAdapter<T>(
-    private val ctx: Context,
+    var ctx: Context,
     private val layoutRes: Int,
     val mData: MutableList<T>
 ) : RecyclerView.Adapter<BaseHolder>() {
@@ -75,6 +75,15 @@ abstract class BaseAdapter<T>(
         if (isDelete) {
             mData.clear()
         }
+        mData.addAll(listData)
+        notifyDataSetChanged()
+    }
+
+    /**
+     * 添加数据
+     * listData：添加的数据
+     */
+    fun setDataList(listData: MutableList<T>) {
         mData.addAll(listData)
         notifyDataSetChanged()
     }

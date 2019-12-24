@@ -1,10 +1,12 @@
 package com.daledawson.wananzhuo_kotlin.bean
 
+import java.io.Serializable
+
 data class SystemData(
     val `data`: MutableList<SystemChildData>,
     val errorCode: Int,
     val errorMsg: String
-)
+):Serializable
 
 data class SystemChildData(
     val children: MutableList<Children>,
@@ -15,7 +17,7 @@ data class SystemChildData(
     val parentChapterId: Int,
     val userControlSetTop: Boolean,
     val visible: Int
-)
+):Serializable
 
 data class Children(
     val children2: MutableList<Any>,
@@ -26,4 +28,4 @@ data class Children(
     val parentChapterId: Int,
     val userControlSetTop: Boolean,
     val visible: Int
-)
+):Serializable

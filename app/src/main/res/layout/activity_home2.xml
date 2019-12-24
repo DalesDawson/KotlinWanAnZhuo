@@ -15,30 +15,27 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <FrameLayout
+            <LinearLayout
                 android:id="@+id/activity_main"
+                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-                <FrameLayout
-                    android:id="@+id/container_Fl"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_constraintBottom_toTopOf="@id/home_BottomView"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:alpha="0"
-                    android:background="@drawable/shape_main"
-                    app:title="沉浸式（ImmersionBar）"
+                    android:background="@color/colorPrimary"
+                    app:title="玩安卓Kotlin"
                     app:titleTextColor="@android:color/white" />
-            </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/container_Fl"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/home_BottomView"

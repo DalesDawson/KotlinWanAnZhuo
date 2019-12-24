@@ -1,13 +1,16 @@
 package com.daledawson.kotlin_kaiyan.fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.daledawson.wananzhuo_kotlin.Api
 import com.daledawson.wananzhuo_kotlin.base.BaseFragment
 import com.daledawson.wananzhuo_kotlin.R
+import com.daledawson.wananzhuo_kotlin.activity.SystemListActivity
 import com.daledawson.wananzhuo_kotlin.adapter.SystemAdapter
+import com.daledawson.wananzhuo_kotlin.base.BaseAdapter
 import com.daledawson.wananzhuo_kotlin.bean.SystemChildData
 import com.daledawson.wananzhuo_kotlin.bean.SystemData
 import com.jcodecraeer.xrecyclerview.XRecyclerView
@@ -43,6 +46,14 @@ class SystemFragment : BaseFragment() {
 
             override fun onRefresh() {
                 getSystemList()
+            }
+        })
+
+        adapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val intent = Intent(context, SystemListActivity::class.java)
+                intent.putExtra(SystemListActivity.CHILDREN, list[position])
+                startActivity(intent)
             }
         })
     }

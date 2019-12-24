@@ -3,6 +3,7 @@ package com.daledawson.wananzhuo_kotlin.activity
 import android.text.TextUtils
 import com.daledawson.wananzhuo_kotlin.R
 import com.daledawson.wananzhuo_kotlin.base.BaseActivity
+import com.gyf.immersionbar.ImmersionBar
 import kotlinx.android.synthetic.main.activity_web.*
 
 /**
@@ -21,6 +22,7 @@ class CommonWebViewActivity : BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_web
 
     override fun initView() {
+        ImmersionBar.with(this).titleBar(R.id.toolbar).init()
     }
 
     override fun initData() {
