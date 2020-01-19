@@ -36,7 +36,8 @@ class HomeListAdapter2(var data: List<DataX>) :
 
         fun bind(date: DataX) {
             itemView.tv_home_list_item_name.text = date.shareUser
-            itemView.tv_home_list_item_time.text = TimeUitl.getDateToString(date.publishTime,"yyyy-MM-dd HH:mm:ss")
+            itemView.tv_home_list_item_time.text =
+                TimeUitl.getDateToString(date.publishTime, "yyyy-MM-dd HH:mm:ss")
             itemView.tv_home_list_item_title.text = date.title
             itemView.tv_home_list_item_type.text = date.superChapterName
         }

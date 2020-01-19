@@ -15,6 +15,7 @@ import com.daledawson.wananzhuo_kotlin.bean.DataX
 import com.daledawson.wananzhuo_kotlin.bean.SystemChildData
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.MODE_SCROLLABLE
+import com.gyf.immersionbar.ImmersionBar
 import com.jcodecraeer.xrecyclerview.XRecyclerView
 import com.stormkid.okhttpkt.core.Okkt
 import com.stormkid.okhttpkt.rule.CallbackRule
@@ -30,7 +31,7 @@ class SystemListActivity : BaseActivity() {
     private lateinit var childrenList: SystemChildData
     var list: MutableList<DataX> = ArrayList()
     lateinit var adapter: HomeListAdapter
-    private var pageIndex: Int = 1
+    private var pageIndex: Int = 0
     private var position: Int = 0
 
     companion object {
@@ -40,6 +41,7 @@ class SystemListActivity : BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_system_list
 
     override fun initView() {
+        ImmersionBar.with(this).titleBar(R.id.toolbar).init()
         system_list_tl.tabMode = MODE_SCROLLABLE
         system_list_rv.layoutManager = LinearLayoutManager(this)
         adapter = HomeListAdapter(this, R.layout.home_list_item, list)
@@ -52,7 +54,7 @@ class SystemListActivity : BaseActivity() {
             }
 
             override fun onRefresh() {
-                pageIndex = 1
+                pageIndex = 0
                 list.clear()
                 getSystemList(pageIndex, childrenList.children[position].id)
             }
@@ -95,7 +97,7 @@ class SystemListActivity : BaseActivity() {
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                pageIndex = 1
+                pageIndex = 0
                 position = tab!!.position
                 Log.i("TAG", "======我选中了====$position")
                 getSystemList(pageIndex, childrenList.children[position].id)
@@ -115,7 +117,7 @@ class SystemListActivity : BaseActivity() {
                     Log.d("aaaaa", entity.data.datas.toString())
                     system_list_rv.loadMoreComplete()
                     system_list_rv.refreshComplete()
-                    if (pageIndex == 1) {
+                    if (pageIndex == 0) {
                         list.clear()
                         list = entity.data.datas
                         adapter.addListData(list, true)

@@ -20,16 +20,19 @@
         <TextView
             android:id="@+id/system_list_title"
             android:layout_width="wrap_content"
-            android:textColor="@color/colorBlack"
             android:layout_height="wrap_content"
-            android:padding="5dp" />
+            android:padding="5dp"
+            android:textColor="@color/colorBlack" />
 
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/system_list_flexBoxLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/system_list_title"
-            app:alignContent="flex_start"
-            app:flexWrap="wrap" />
+            android:layout_marginTop="10dp"
+            app:dividerDrawable="@drawable/shape_flexbox_divider"
+            app:flexWrap="wrap"
+            app:justifyContent="flex_start"
+            app:showDivider="middle" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

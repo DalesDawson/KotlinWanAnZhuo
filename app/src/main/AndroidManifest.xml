@@ -24,6 +24,7 @@
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.CommonWebViewActivity" />
         <activity android:name=".activity.SystemListActivity" />
+        <activity android:name=".activity.SearchListActivity" />
     </application>
 
 </manifest>

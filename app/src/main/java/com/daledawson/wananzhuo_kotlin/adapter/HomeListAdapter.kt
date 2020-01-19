@@ -1,6 +1,7 @@
 package com.daledawson.wananzhuo_kotlin.adapter
 
 import android.content.Context
+import android.text.Html
 import android.text.TextUtils
 import android.widget.ImageView
 import android.widget.TextView
@@ -19,18 +20,18 @@ import com.daledawson.wananzhuo_kotlin.util.TimeUitl
 class HomeListAdapter(ctx: Context, layoutRes: Int, mData: MutableList<DataX>) :
     BaseAdapter<DataX>(ctx, layoutRes, mData) {
     override fun convert(holder: BaseHolder, position: Int) {
-        var user: String = ""
-        if (TextUtils.isEmpty(this.mData[position].shareUser)) {
-            user = this.mData[position].author
+        var user = if (TextUtils.isEmpty(this.mData[position].shareUser)) {
+            this.mData[position].author
         } else {
-            user = this.mData[position].shareUser
+            this.mData[position].shareUser
         }
         holder.getView<TextView>(R.id.tv_home_list_item_name).text = user
         holder.getView<TextView>(R.id.tv_home_list_item_time).text =
             TimeUitl.getDateToString(this.mData[position].publishTime, "yyyy-MM-dd HH:mm:ss")
-        holder.getView<TextView>(R.id.tv_home_list_item_title).text = this.mData[position].title
+        holder.getView<TextView>(R.id.tv_home_list_item_title).text =
+            Html.fromHtml(this.mData[position].title)
         holder.getView<TextView>(R.id.tv_home_list_item_type).text =
-            this.mData[position].superChapterName
+            this.mData[position].superChapterName + "/" + this.mData[position].chapterName
         holder.getView<ImageView>(R.id.iv_home_list_item_like)
             .setImageResource(R.mipmap.icon_like_normal)
     }

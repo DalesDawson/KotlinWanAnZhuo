@@ -1,32 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_view"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:background="@color/colorEee">
+            android:layout_marginTop="2dp"
+            android:background="@drawable/search_bg"
+            android:orientation="horizontal">
 
-        </androidx.appcompat.widget.SearchView>
+            <EditText
+                android:id="@+id/search_view"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="10"
+                android:background="@null"
+                android:hint="面试、android studio..."
+                android:paddingLeft="20dp"
+                android:singleLine="true"
+                android:textColor="@color/colorPrimary">
+
+            </EditText>
+
+            <TextView
+                android:id="@+id/search_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:background="@drawable/search_btn_bg"
+                android:gravity="center"
+                android:text="搜索"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/search_tv"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:text="搜索"
-            android:textColor="@color/colorWhite" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:text="搜索热词"
+            android:textColor="@color/colorPrimary"
+            android:textSize="25dp" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/search_hot_word_fl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:dividerDrawable="@drawable/shape_flexbox_divider"
+            app:flexWrap="wrap"
+            app:justifyContent="flex_start"
+            app:showDivider="middle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:text="热门网站"
+            android:textColor="@color/colorPrimary"
+            android:textSize="25dp" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/search_hot_web_fl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:dividerDrawable="@drawable/shape_flexbox_divider"
+            app:flexWrap="wrap"
+            app:justifyContent="flex_start"
+            app:showDivider="middle" />
     </LinearLayout>
-</LinearLayout>
+</ScrollView>
