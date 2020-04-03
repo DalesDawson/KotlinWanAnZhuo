@@ -1,11 +1,13 @@
 package com.daledawson.wananzhuo_kotlin.activity
 
+import android.content.Intent
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.daledawson.wananzhuo_kotlin.Api
 import com.daledawson.wananzhuo_kotlin.R
 import com.daledawson.wananzhuo_kotlin.adapter.HomeListAdapter
 import com.daledawson.wananzhuo_kotlin.base.BaseActivity
+import com.daledawson.wananzhuo_kotlin.base.BaseAdapter
 import com.daledawson.wananzhuo_kotlin.bean.ArticleData
 import com.daledawson.wananzhuo_kotlin.bean.DataX
 import com.gyf.immersionbar.ImmersionBar
@@ -39,7 +41,13 @@ class SearchListActivity : BaseActivity() {
         search_list_rv.isNestedScrollingEnabled = false
         adapter = HomeListAdapter(this, R.layout.home_list_item, list)
         search_list_rv.adapter = adapter
-
+        adapter.setOnItemClickListener(object :BaseAdapter.OnItemClickListener{
+            override fun onItemClick(position: Int) {
+                val intent = Intent(this@SearchListActivity, CommonWebViewActivity::class.java)
+                intent.putExtra(CommonWebViewActivity.LINK, list[position].link)
+                startActivity(intent)
+            }
+        })
         search_list_rv.setLoadingListener(object : XRecyclerView.LoadingListener {
             override fun onLoadMore() {
                 pageIndex++

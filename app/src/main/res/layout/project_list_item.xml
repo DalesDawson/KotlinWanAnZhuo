@@ -44,10 +44,12 @@
                 <TextView
                     android:id="@+id/tv_project_list_name"
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:maxLines="2"
-                    android:text="@string/string_test" />
+                    android:text="@string/string_test"
+                    android:textColor="@color/colorBlack" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -62,8 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="3"
-                    android:text="@string/string_test"
-                    android:textColor="@color/colorBlack" />
+                    android:text="@string/string_test" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -86,6 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
+                    android:singleLine="true"
                     android:layout_toRightOf="@id/tv_project_list_date"
                     android:text="@string/string_test" />
 

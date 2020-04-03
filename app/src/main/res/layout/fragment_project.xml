@@ -10,14 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:tabIndicatorColor="@color/colorPrimary"
-        app:tabIndicatorHeight="1dp"
+        app:tabIndicatorHeight="2dp"
         app:tabMinWidth="40dp"
         app:tabMode="scrollable"
         app:tabPaddingEnd="10dp"
-        app:tabPaddingStart="10dp" />
+        app:tabPaddingStart="10dp"
+        app:tabSelectedTextColor="@color/colorPrimary" />
 
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/project_rv"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

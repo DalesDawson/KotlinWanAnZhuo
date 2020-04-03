@@ -27,7 +27,7 @@ class HomeListAdapter(ctx: Context, layoutRes: Int, mData: MutableList<DataX>) :
         }
         holder.getView<TextView>(R.id.tv_home_list_item_name).text = user
         holder.getView<TextView>(R.id.tv_home_list_item_time).text =
-            TimeUitl.getDateToString(this.mData[position].publishTime, "yyyy-MM-dd HH:mm:ss")
+            TimeUitl.getDateToString(this.mData[position].publishTime, "yyyy-MM-dd")
         holder.getView<TextView>(R.id.tv_home_list_item_title).text =
             Html.fromHtml(this.mData[position].title)
         holder.getView<TextView>(R.id.tv_home_list_item_type).text =

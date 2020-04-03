@@ -1,6 +1,7 @@
 package com.daledawson.kotlin_kaiyan.fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.text.Html
 import android.util.Log
 import android.widget.Toast
@@ -8,7 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.daledawson.wananzhuo_kotlin.Api
 import com.daledawson.wananzhuo_kotlin.base.BaseFragment
 import com.daledawson.wananzhuo_kotlin.R
+import com.daledawson.wananzhuo_kotlin.activity.CommonWebViewActivity
 import com.daledawson.wananzhuo_kotlin.adapter.ProjectListAdapter
+import com.daledawson.wananzhuo_kotlin.base.BaseAdapter
 import com.daledawson.wananzhuo_kotlin.bean.ArticleData
 import com.daledawson.wananzhuo_kotlin.bean.DataX
 import com.daledawson.wananzhuo_kotlin.bean.ProjectTree
@@ -42,7 +45,14 @@ class ProjectFragment : BaseFragment() {
         project_rv.layoutManager = LinearLayoutManager(context)
         adapter = ProjectListAdapter(context!!, R.layout.project_list_item, list)
         project_rv.adapter = adapter
+        adapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val intent = Intent(context, CommonWebViewActivity::class.java)
+                intent.putExtra(CommonWebViewActivity.LINK, list[position].link)
+                startActivity(intent)
+            }
 
+        })
         project_rv.setLoadingListener(object : XRecyclerView.LoadingListener {
             override fun onLoadMore() {
                 pageIndex++

@@ -27,7 +27,7 @@ class ProjectListAdapter(ctx: Context, layoutRes: Int, mData: MutableList<DataX>
         holder.getView<TextView>(R.id.tv_project_list_name_title).text =
             Html.fromHtml(this.mData[position].desc)
         holder.getView<TextView>(R.id.tv_project_list_date).text =
-            TimeUitl.getDateToString(this.mData[position].publishTime, "yyyy-MM-dd HH:mm:ss")
+            TimeUitl.getDateToString(this.mData[position].publishTime, "yyyy-MM-dd")
         holder.getView<TextView>(R.id.tv_project_list_author).text =
             this.mData[position].author
         holder.getView<ImageView>(R.id.iv_project_list_like)

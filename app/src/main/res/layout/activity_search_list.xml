@@ -31,6 +31,7 @@
             android:textSize="20dp" />
 
         <com.jcodecraeer.xrecyclerview.XRecyclerView
+            android:layout_marginTop="5dp"
             android:id="@+id/search_list_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
