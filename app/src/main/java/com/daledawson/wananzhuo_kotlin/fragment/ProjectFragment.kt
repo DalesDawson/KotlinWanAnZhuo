@@ -6,7 +6,7 @@ import android.text.Html
 import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.daledawson.wananzhuo_kotlin.Api
+import com.daledawson.wananzhuo_kotlin.http.HttpProvider
 import com.daledawson.wananzhuo_kotlin.base.BaseFragment
 import com.daledawson.wananzhuo_kotlin.R
 import com.daledawson.wananzhuo_kotlin.activity.CommonWebViewActivity
@@ -74,7 +74,7 @@ class ProjectFragment : BaseFragment() {
     }
 
     private fun getProjectTree() {
-        Okkt.instance.Builder().setUrl(Api.PROJECT_TREE).get(object : CallbackRule<ProjectTree> {
+        Okkt.instance.Builder().setUrl(HttpProvider.PROJECT_TREE).get(object : CallbackRule<ProjectTree> {
             override suspend fun onSuccess(entity: ProjectTree, flag: String) {
                 Log.d("projectTree", entity.toString())
                 treeList = entity.data
@@ -113,7 +113,7 @@ class ProjectFragment : BaseFragment() {
     }
 
     private fun getProjectList(pageIndex: Int, cid: Int) {
-        Okkt.instance.Builder().setUrl(Api.PROJECT_LIST + "$pageIndex" + "/json?cid=" + "$cid")
+        Okkt.instance.Builder().setUrl(HttpProvider.PROJECT_LIST + "$pageIndex" + "/json?cid=" + "$cid")
             .get(object : CallbackRule<ArticleData> {
                 override suspend fun onFailed(error: String) {
 

@@ -3,7 +3,7 @@ package com.daledawson.wananzhuo_kotlin.activity
 import android.content.Intent
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.daledawson.wananzhuo_kotlin.Api
+import com.daledawson.wananzhuo_kotlin.http.HttpProvider
 import com.daledawson.wananzhuo_kotlin.R
 import com.daledawson.wananzhuo_kotlin.adapter.HomeListAdapter
 import com.daledawson.wananzhuo_kotlin.base.BaseActivity
@@ -71,7 +71,7 @@ class SearchListActivity : BaseActivity() {
     }
 
     private fun getSearchList(keyWord: String, page: Int) {
-        Okkt.instance.Builder().setUrl(Api.SEARCH_WORD + "$pageIndex" + "/json")
+        Okkt.instance.Builder().setUrl(HttpProvider.SEARCH_WORD + "$pageIndex" + "/json")
             .putBody(hashMapOf("k" to "$keyWord"))
             .post(object : CallbackRule<ArticleData> {
                 override suspend fun onFailed(error: String) {

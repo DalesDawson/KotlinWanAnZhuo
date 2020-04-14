@@ -5,10 +5,9 @@ import android.content.Intent
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import com.daledawson.wananzhuo_kotlin.Api
+import com.daledawson.wananzhuo_kotlin.http.HttpProvider
 import com.daledawson.wananzhuo_kotlin.base.BaseFragment
 import com.daledawson.wananzhuo_kotlin.R
 import com.daledawson.wananzhuo_kotlin.activity.CommonWebViewActivity
@@ -53,7 +52,7 @@ class SearchFragment : BaseFragment() {
     }
 
     private fun getHotWord() {
-        Okkt.instance.Builder().setUrl(Api.HOT_WORD).get(object : CallbackRule<HotSearchResponse> {
+        Okkt.instance.Builder().setUrl(HttpProvider.HOT_WORD).get(object : CallbackRule<HotSearchResponse> {
             override suspend fun onSuccess(entity: HotSearchResponse, flag: String) {
                 Log.d("HOT_WORD---", entity.toString())
                 hotWordList = entity.data
@@ -68,7 +67,7 @@ class SearchFragment : BaseFragment() {
     }
 
     private fun getHotWeb() {
-        Okkt.instance.Builder().setUrl(Api.HOT_FRIEND)
+        Okkt.instance.Builder().setUrl(HttpProvider.HOT_FRIEND)
             .get(object : CallbackRule<HotSearchResponse> {
                 override suspend fun onSuccess(entity: HotSearchResponse, flag: String) {
                     Log.d("HOT_FRIEND---", entity.toString())

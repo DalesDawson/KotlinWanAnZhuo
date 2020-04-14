@@ -1,10 +1,9 @@
 package com.daledawson.wananzhuo_kotlin.activity
 
 import android.content.Intent
-import android.text.Html
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.daledawson.wananzhuo_kotlin.Api
+import com.daledawson.wananzhuo_kotlin.http.HttpProvider
 import com.daledawson.wananzhuo_kotlin.R
 import com.daledawson.wananzhuo_kotlin.adapter.HomeListAdapter
 import com.daledawson.wananzhuo_kotlin.base.BaseActivity
@@ -107,7 +106,7 @@ class SystemListActivity : BaseActivity() {
     }
 
     private fun getSystemList(pageIndex: Int, cid: Int) {
-        Okkt.instance.Builder().setUrl(Api.KNOWLEDGE_LIST + "$pageIndex" + "/json?cid=" + "$cid")
+        Okkt.instance.Builder().setUrl(HttpProvider.KNOWLEDGE_LIST + "$pageIndex" + "/json?cid=" + "$cid")
             .get(object : CallbackRule<ArticleData> {
                 override suspend fun onFailed(error: String) {
 

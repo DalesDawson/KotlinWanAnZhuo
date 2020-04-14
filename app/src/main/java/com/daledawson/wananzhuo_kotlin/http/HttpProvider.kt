@@ -1,4 +1,4 @@
-package com.daledawson.wananzhuo_kotlin
+package com.daledawson.wananzhuo_kotlin.http
 
 /**
  * 创 建 人：zhengquan
@@ -6,7 +6,7 @@ package com.daledawson.wananzhuo_kotlin
  * 修改时间：
  * 修改备注：
  */
-class Api {
+class HttpProvider {
     companion object {
         const val HOST = "https://www.wanandroid.com/"
 
@@ -35,6 +35,9 @@ class Api {
 
         //项目列表http://www.wanandroid.com/project/list/1/json?cid=294
         const val PROJECT_LIST = "project/list/"
+
+        //收藏列表https://www.wanandroid.com/lg/collect/list/0/json
+        const val COLLECT_LIST = "lg/collect/list/{page}/json"
 
         //注册 https://www.wanandroid.com/user/register
         const val REGISTER = "user/register"

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.daledawson.wananzhuo_kotlin.activity.CommonWebViewActivity
-import com.daledawson.wananzhuo_kotlin.activity.HomeActivity
 import com.daledawson.wananzhuo_kotlin.adapter.HomeListAdapter
 import com.daledawson.wananzhuo_kotlin.base.BaseAdapter
 import com.daledawson.wananzhuo_kotlin.base.BaseFragment
@@ -15,13 +14,11 @@ import kotlinx.android.synthetic.main.fragment_main.*
 import com.daledawson.wananzhuo_kotlin.bean.ArticleData
 import com.daledawson.wananzhuo_kotlin.bean.DataX
 import com.daledawson.wananzhuo_kotlin.util.GlideImageLoader
-import com.jcodecraeer.xrecyclerview.XRecyclerView
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
 import kotlin.collections.ArrayList
-import com.daledawson.wananzhuo_kotlin.activity.MainActivity
 import com.daledawson.wananzhuo_kotlin.bean.Data
-import com.youth.banner.listener.OnBannerListener
+import com.daledawson.wananzhuo_kotlin.http.HttpProvider
 
 
 /**
@@ -104,7 +101,7 @@ class MainFragment : BaseFragment() {
     }
 
     private fun getBannerList() {
-        Okkt.instance.Builder().setUrl(Api.BANNER_LIST).get(object : CallbackRule<BannerData> {
+        Okkt.instance.Builder().setUrl(HttpProvider.BANNER_LIST).get(object : CallbackRule<BannerData> {
             override suspend fun onSuccess(entity: BannerData, flag: String) {
                 home_refreshLayout.finishRefreshing()
                 home_refreshLayout.finishRefreshing()
@@ -125,7 +122,7 @@ class MainFragment : BaseFragment() {
     }
 
     private fun getArticleList(pageIndex: Int) {
-        Okkt.instance.Builder().setUrl(Api.HOME_LIST + "$pageIndex" + "/json")
+        Okkt.instance.Builder().setUrl(HttpProvider.HOME_LIST + "$pageIndex" + "/json")
             .get(object : CallbackRule<ArticleData> {
                 override suspend fun onFailed(error: String) {
                     home_refreshLayout.finishRefreshing()

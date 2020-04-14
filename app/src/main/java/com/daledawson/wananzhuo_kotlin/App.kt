@@ -1,6 +1,7 @@
 package com.daledawson.wananzhuo_kotlin
 
 import android.app.Application
+import com.daledawson.wananzhuo_kotlin.http.HttpProvider
 import com.stormkid.okhttpkt.core.Okkt
 
 /**
@@ -12,6 +13,16 @@ import com.stormkid.okhttpkt.core.Okkt
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        Okkt.instance.setBase(Api.HOST).initHttpClient()
+        instance = this
+        Okkt.instance.setBase(HttpProvider.HOST).initHttpClient()
+    }
+
+    companion object {
+        //情况一：声明可空的属性
+        private var instance: App? = null
+        fun instance() = instance!!
+        //情况二：声明延迟初始化属性
+        //private lateinit var instance: MainApplication
+        //fun instance() = instance
     }
 }

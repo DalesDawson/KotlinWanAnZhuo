@@ -5,7 +5,7 @@ import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.daledawson.wananzhuo_kotlin.Api
+import com.daledawson.wananzhuo_kotlin.http.HttpProvider
 import com.daledawson.wananzhuo_kotlin.base.BaseFragment
 import com.daledawson.wananzhuo_kotlin.R
 import com.daledawson.wananzhuo_kotlin.activity.SystemListActivity
@@ -63,7 +63,7 @@ class SystemFragment : BaseFragment() {
     }
 
     private fun getSystemList() {
-        Okkt.instance.Builder().setUrl(Api.KNOWLEDGE_TREE).get(object : CallbackRule<SystemData> {
+        Okkt.instance.Builder().setUrl(HttpProvider.KNOWLEDGE_TREE).get(object : CallbackRule<SystemData> {
             override suspend fun onSuccess(entity: SystemData, flag: String) {
                 Log.d("system", entity.toString())
                 systemRecyclerView.refreshComplete()
