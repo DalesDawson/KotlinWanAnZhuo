@@ -14,7 +14,7 @@ data class CollectionResponse(
 
 data class BData(
     val curPage: Int,
-    val datas: List<SDataX>,
+    val datas: MutableList<SDataX>,
     val offset: Int,
     val over: Boolean,
     val pageCount: Int,

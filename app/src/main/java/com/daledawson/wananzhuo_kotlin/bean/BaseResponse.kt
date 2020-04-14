@@ -6,7 +6,10 @@ package com.daledawson.wananzhuo_kotlin.bean
  * 修改时间：
  * 修改备注：
  */
-open class BaseResponse(
-    open var errorCode: Int,
-    open var errorMsg: String
-)
+class BaseResponse<T> {
+    var data: T? = null
+    var errorMsg = ""
+    var errorCode = 0
+
+
+}

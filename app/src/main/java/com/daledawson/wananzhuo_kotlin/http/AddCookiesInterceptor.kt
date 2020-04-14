@@ -20,7 +20,7 @@ class AddCookiesInterceptor : Interceptor {
         val sharedPreferences =
             App.instance().getSharedPreferences("cookie", Context.MODE_PRIVATE)
         var cookies: HashSet<String> =
-            sharedPreferences?.getStringSet("cookie", setOf("","")) as HashSet<String>
+            sharedPreferences?.getStringSet("cookie", setOf("", "")) as HashSet<String>
         if (cookies != null) {
             for (cookie in cookies) {
                 builder.addHeader("Cookie", cookie)

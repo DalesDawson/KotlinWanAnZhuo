@@ -42,5 +42,4 @@ class ApiService private constructor() {
             return retrofit.create(Api::class.java)
         }
     }
-
 }

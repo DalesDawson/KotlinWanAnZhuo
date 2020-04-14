@@ -97,17 +97,23 @@ class RegisterActivity : BaseActivity() {
             ApiService.get().register(map).enqueue(object : Callback<RegisterResponse> {
                 override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
                     Toast.makeText(this@RegisterActivity, t.message, Toast.LENGTH_SHORT).show()
-                    Log.d("---register","注册出错了")
+                    Log.d("---register", "注册出错了")
                 }
 
                 override fun onResponse(
                     call: Call<RegisterResponse>,
                     response: Response<RegisterResponse>
                 ) {
-                    Log.d("---register","注册成功了")
+                    Log.d("---register", "注册成功了")
                     if (response.body()?.errorCode == 0) {
                         Toast.makeText(this@RegisterActivity, "注册成功！", Toast.LENGTH_SHORT).show()
                         finish()
+                    } else {
+                        Toast.makeText(
+                            this@RegisterActivity,
+                            response.body()?.errorMsg,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 

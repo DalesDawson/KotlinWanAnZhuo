@@ -2,6 +2,7 @@ package com.daledawson.wananzhuo_kotlin.activity
 
 import android.content.Intent
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.daledawson.wananzhuo_kotlin.http.HttpProvider
 import com.daledawson.wananzhuo_kotlin.R
@@ -66,7 +67,8 @@ class SearchListActivity : BaseActivity() {
     override fun initData() {
         pageIndex = 0
         keyWords = intent.getStringExtra(KEY_WORD) as String
-        search_list_title.text = keyWords
+        search_list_title.visibility=View.GONE
+        toolbar.title=keyWords
         getSearchList(keyWords, pageIndex)
     }
 

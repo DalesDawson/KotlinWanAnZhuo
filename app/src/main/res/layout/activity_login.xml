@@ -75,6 +75,7 @@
             <EditText
                 android:id="@+id/et_login_password"
                 android:layout_width="match_parent"
+                android:password="true"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="请输入密码"

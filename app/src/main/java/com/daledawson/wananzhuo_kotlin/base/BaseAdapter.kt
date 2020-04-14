@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 abstract class BaseAdapter<T>(
     var ctx: Context,
     private val layoutRes: Int,
-    val mData: MutableList<T>
+    var mData: MutableList<T>
 ) : RecyclerView.Adapter<BaseHolder>() {
 
     private lateinit var mListener: OnItemClickListener

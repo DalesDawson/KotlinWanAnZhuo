@@ -1,6 +1,7 @@
 package com.daledawson.wananzhuo_kotlin.activity
 
 import android.content.Intent
+import android.text.TextUtils
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.daledawson.wananzhuo_kotlin.http.HttpProvider
@@ -32,9 +33,11 @@ class SystemListActivity : BaseActivity() {
     lateinit var adapter: HomeListAdapter
     private var pageIndex: Int = 0
     private var position: Int = 0
+    private var title: String = ""
 
     companion object {
         const val CHILDREN = "CHILDREN"
+        const val TITLE = "TITLE"
     }
 
     override fun getLayoutId(): Int = R.layout.activity_system_list
@@ -78,6 +81,10 @@ class SystemListActivity : BaseActivity() {
 
     override fun initData() {
         childrenList = intent.getSerializableExtra(CHILDREN) as SystemChildData
+        title = intent.getStringExtra(TITLE)
+        if (!TextUtils.isEmpty(title)) {
+            toolbar.title = title
+        }
         Log.d("SystemListActivity", childrenList.toString())
         initTitle()
     }
@@ -106,7 +113,8 @@ class SystemListActivity : BaseActivity() {
     }
 
     private fun getSystemList(pageIndex: Int, cid: Int) {
-        Okkt.instance.Builder().setUrl(HttpProvider.KNOWLEDGE_LIST + "$pageIndex" + "/json?cid=" + "$cid")
+        Okkt.instance.Builder()
+            .setUrl(HttpProvider.KNOWLEDGE_LIST + "$pageIndex" + "/json?cid=" + "$cid")
             .get(object : CallbackRule<ArticleData> {
                 override suspend fun onFailed(error: String) {
 

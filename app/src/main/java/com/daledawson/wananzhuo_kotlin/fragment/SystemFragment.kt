@@ -53,6 +53,7 @@ class SystemFragment : BaseFragment() {
             override fun onItemClick(position: Int) {
                 val intent = Intent(context, SystemListActivity::class.java)
                 intent.putExtra(SystemListActivity.CHILDREN, list[position])
+                intent.putExtra(SystemListActivity.TITLE,list[position].name)
                 startActivity(intent)
             }
         })
