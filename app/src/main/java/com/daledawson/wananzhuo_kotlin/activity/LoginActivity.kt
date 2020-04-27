@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
 import android.widget.Toast
-import com.daledawson.wananzhuo_kotlin.App
 import com.daledawson.wananzhuo_kotlin.R
 import com.daledawson.wananzhuo_kotlin.base.BaseActivity
 import com.daledawson.wananzhuo_kotlin.bean.BaseResponse
@@ -48,7 +47,7 @@ class LoginActivity : BaseActivity() {
         val map: HashMap<String, String> = HashMap()
         map["username"] = name
         map["password"] = password
-        ApiService.get().login(map).enqueue(object : Callback<BaseResponse<Any>> {
+        ApiService.crate().login(map).enqueue(object : Callback<BaseResponse<Any>> {
             override fun onFailure(call: Call<BaseResponse<Any>>, t: Throwable) {
                 Toast.makeText(this@LoginActivity, t.message, Toast.LENGTH_SHORT).show()
             }

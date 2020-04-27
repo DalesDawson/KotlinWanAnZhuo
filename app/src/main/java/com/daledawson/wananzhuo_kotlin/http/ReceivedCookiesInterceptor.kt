@@ -20,7 +20,7 @@ class ReceivedCookiesInterceptor() : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalResponse: Response = chain.proceed(chain.request())
         //这里获取请求返回的cookie
-        if (!originalResponse.headers("Set-Cookie").isEmpty()) {
+        if (originalResponse.headers("Set-Cookie").isNotEmpty()) {
             val cookies: HashSet<String> = HashSet(originalResponse.headers("set-cookie"))
             val sp: SharedPreferences =
                 App.instance().getSharedPreferences("cookie", MODE_PRIVATE)

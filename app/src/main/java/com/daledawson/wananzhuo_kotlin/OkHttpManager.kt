@@ -56,7 +56,7 @@ object OkHttpManager {
     fun postAsync(url: String, map: Map<String, String>, callback: ResultCallback<*>) {
         val formBody = FormBody.Builder().apply {
             for (key in map.keys){
-                this.add(key,map[key])
+                this.add(key, map[key].toString())
             }
         }.build()
         val request = Request.Builder().url(url).post(formBody).build()

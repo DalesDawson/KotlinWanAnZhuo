@@ -8,7 +8,6 @@ import com.daledawson.wananzhuo_kotlin.R
 import com.daledawson.wananzhuo_kotlin.adapter.CollectListAdapter
 import com.daledawson.wananzhuo_kotlin.base.BaseActivity
 import com.daledawson.wananzhuo_kotlin.base.BaseAdapter
-import com.daledawson.wananzhuo_kotlin.bean.BaseResponse
 import com.daledawson.wananzhuo_kotlin.bean.CollectionResponse
 import com.daledawson.wananzhuo_kotlin.bean.SDataX
 import com.daledawson.wananzhuo_kotlin.http.ApiService
@@ -49,7 +48,7 @@ class CollectionActivity : BaseActivity() {
     }
 
     private fun getList(page: Int) {
-        ApiService.get().getCollectionList(page).enqueue(object : Callback<CollectionResponse> {
+        ApiService.crate().getCollectionList(page).enqueue(object : Callback<CollectionResponse> {
             override fun onFailure(call: Call<CollectionResponse>, t: Throwable) {
                 Log.d("-----tag", t.message)
             }

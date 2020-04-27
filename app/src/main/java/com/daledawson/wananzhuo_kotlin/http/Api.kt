@@ -1,9 +1,6 @@
 package com.daledawson.wananzhuo_kotlin.http
 
-import com.daledawson.wananzhuo_kotlin.bean.BaseResponse
-import com.daledawson.wananzhuo_kotlin.bean.CollectionResponse
-import com.daledawson.wananzhuo_kotlin.bean.RegisterResponse
-import com.daledawson.wananzhuo_kotlin.bean.ScoreData
+import com.daledawson.wananzhuo_kotlin.bean.*
 import io.reactivex.Observable
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -37,8 +34,8 @@ interface Api {
     /**
      * 获取首页文章数据
      */
-    @GET("/article/list/{page}/json")
-    fun getHomeList(@Path("page") pageNo: Int): Observable<BaseResponse<Any>>
+    @GET("article/list/{page}/json")
+    fun getHomeList(@Path("page") pageNo: Int): Observable<ArticleData>
 
     /**
      * 获取首页置顶文章数据
@@ -49,8 +46,8 @@ interface Api {
     /**
      * banner
      */
-    @GET("/banner/json")
-    fun getBanner(): Observable<BaseResponse<MutableList<Any>>>
+    @GET(HttpProvider.BANNER_LIST)
+    fun getBanner(): Observable<BaseResponse<MutableList<BannerData>>>
 
     /**
      * 登录

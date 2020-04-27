@@ -4,11 +4,9 @@ import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
-import android.opengl.Visibility
 import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
-import com.daledawson.wananzhuo_kotlin.App
 import com.daledawson.wananzhuo_kotlin.base.BaseFragment
 import com.daledawson.wananzhuo_kotlin.R
 import com.daledawson.wananzhuo_kotlin.activity.CollectionActivity
@@ -42,7 +40,7 @@ class MineFragment : BaseFragment() {
         }
 
         rl_logout.setOnClickListener {
-            ApiService.get().logout().enqueue(object : Callback<BaseResponse<Any>> {
+            ApiService.crate().logout().enqueue(object : Callback<BaseResponse<Any>> {
                 override fun onFailure(call: Call<BaseResponse<Any>>, t: Throwable) {
                     Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
                 }
@@ -75,7 +73,7 @@ class MineFragment : BaseFragment() {
         var username = sharedPreferences?.getString("username", "")
         if (!TextUtils.isEmpty(username)) {
             name_tv.text = username
-            ApiService.get().getIntegral().enqueue(object : Callback<BaseResponse<ScoreData>> {
+            ApiService.crate().getIntegral().enqueue(object : Callback<BaseResponse<ScoreData>> {
                 override fun onFailure(call: Call<BaseResponse<ScoreData>>, t: Throwable) {
 
                 }

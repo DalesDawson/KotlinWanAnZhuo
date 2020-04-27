@@ -1,9 +1,15 @@
 package com.daledawson.wananzhuo_kotlin.http
 
+import android.util.Log
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.security.SecureRandom
+import javax.net.ssl.SSLContext
+import javax.net.ssl.SSLSocketFactory
+import javax.net.ssl.TrustManager
 
 
 /**
@@ -13,8 +19,9 @@ import retrofit2.converter.gson.GsonConverterFactory
  * 修改备注：
  */
 class ApiService private constructor() {
+
     companion object {
-        var api: Api? = null
+        private var api: Api? = null
             get() {
                 if (field == null) {
                     field = createApi()
@@ -22,16 +29,35 @@ class ApiService private constructor() {
                 return field
             }
 
-        fun get(): Api {
+        fun crate(): Api {
             return api!!
         }
-
-        var client: OkHttpClient = OkHttpClient.Builder()
+        private var httpLoggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message ->
+            Log.d("ApiService", "message:$message")
+        })
+        private var client: OkHttpClient = OkHttpClient.Builder()
             .addInterceptor(ReceivedCookiesInterceptor())
             .addInterceptor(AddCookiesInterceptor())
+            .addInterceptor(httpLoggingInterceptor)
             .build()
 
+        private fun createSSLSocketFactory(): SSLSocketFactory? {
+            var ssfFactory: SSLSocketFactory? = null
+            try {
+                val sc = SSLContext.getInstance("TLS")
+                sc.init(
+                    null,
+                    arrayOf<TrustManager>(TrustAllCerts()),
+                    SecureRandom()
+                )
+                ssfFactory = sc.socketFactory
+            } catch (e: Exception) {
+            }
+            return ssfFactory
+        }
+
         private fun createApi(): Api {
+            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             val retrofit = Retrofit.Builder()
                 .baseUrl(HttpProvider.HOST)//设置网络请求的Url地址
                 .client(client)
@@ -41,5 +67,6 @@ class ApiService private constructor() {
             // 返回网络请求接口的实例
             return retrofit.create(Api::class.java)
         }
+
     }
 }

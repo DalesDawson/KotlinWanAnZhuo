@@ -4,26 +4,14 @@ import android.annotation.SuppressLint
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
-import androidx.annotation.CheckResult
 import com.daledawson.wananzhuo_kotlin.R
 import com.daledawson.wananzhuo_kotlin.base.BaseActivity
 import com.daledawson.wananzhuo_kotlin.bean.RegisterResponse
-import com.daledawson.wananzhuo_kotlin.http.Api
 import com.daledawson.wananzhuo_kotlin.http.ApiService
-import com.daledawson.wananzhuo_kotlin.http.HttpProvider
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.observers.DisposableObserver
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_register.*
-import okhttp3.MediaType
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
 import kotlin.collections.HashMap
 
 /**
@@ -94,7 +82,7 @@ class RegisterActivity : BaseActivity() {
             map["username"] = name
             map["password"] = password
             map["repassword"] = repassword
-            ApiService.get().register(map).enqueue(object : Callback<RegisterResponse> {
+            ApiService.crate().register(map).enqueue(object : Callback<RegisterResponse> {
                 override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
                     Toast.makeText(this@RegisterActivity, t.message, Toast.LENGTH_SHORT).show()
                     Log.d("---register", "注册出错了")

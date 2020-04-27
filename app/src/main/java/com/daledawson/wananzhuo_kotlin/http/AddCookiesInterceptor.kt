@@ -15,16 +15,14 @@ import java.io.IOException
  */
 class AddCookiesInterceptor : Interceptor {
     @Throws(IOException::class)
-    override fun intercept(chain: Interceptor.Chain): Response? {
+    override fun intercept(chain: Interceptor.Chain): Response {
         val builder = chain.request().newBuilder()
         val sharedPreferences =
             App.instance().getSharedPreferences("cookie", Context.MODE_PRIVATE)
-        var cookies: HashSet<String> =
+        val cookies: HashSet<String> =
             sharedPreferences?.getStringSet("cookie", setOf("", "")) as HashSet<String>
-        if (cookies != null) {
-            for (cookie in cookies) {
-                builder.addHeader("Cookie", cookie)
-            }
+        for (cookie in cookies) {
+            builder.addHeader("Cookie", cookie)
         }
         return chain.proceed(builder.build())
     }

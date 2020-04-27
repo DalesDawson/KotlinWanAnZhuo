@@ -12,7 +12,6 @@ import com.daledawson.wananzhuo_kotlin.base.BaseHolder
 import com.daledawson.wananzhuo_kotlin.bean.BaseResponse
 import com.daledawson.wananzhuo_kotlin.bean.DataX
 import com.daledawson.wananzhuo_kotlin.http.ApiService
-import com.daledawson.wananzhuo_kotlin.util.GlideImageLoader
 import com.daledawson.wananzhuo_kotlin.util.TimeUitl
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,7 +39,7 @@ class ProjectListAdapter(ctx: Context, layoutRes: Int, mData: MutableList<DataX>
             .setImageResource(R.mipmap.icon_like_normal)
 
         holder.getView<ImageView>(R.id.iv_project_list_like).setOnClickListener {
-            ApiService.get().collect(this.mData[position].id)
+            ApiService.crate().collect(this.mData[position].id)
                 .enqueue(object : Callback<BaseResponse<Any>> {
                     override fun onFailure(call: Call<BaseResponse<Any>>, t: Throwable) {
                         Toast.makeText(ctx, t.message, Toast.LENGTH_SHORT).show()

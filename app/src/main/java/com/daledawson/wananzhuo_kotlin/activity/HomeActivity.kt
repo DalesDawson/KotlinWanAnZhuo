@@ -6,7 +6,7 @@ import com.daledawson.kotlin_kaiyan.fragment.SearchFragment
 import com.daledawson.kotlin_kaiyan.fragment.MineFragment
 import com.daledawson.kotlin_kaiyan.fragment.ProjectFragment
 import com.daledawson.kotlin_kaiyan.fragment.SystemFragment
-import com.daledawson.wananzhuo_kotlin.MainFragment
+import com.daledawson.wananzhuo_kotlin.fragment.MainFragment
 import com.daledawson.wananzhuo_kotlin.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.daledawson.wananzhuo_kotlin.base.BaseActivity

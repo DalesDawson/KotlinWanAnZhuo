@@ -42,7 +42,7 @@ class HomeListAdapter(ctx: Context, layoutRes: Int, mData: MutableList<DataX>) :
             .setImageResource(R.mipmap.icon_like_normal)
 
         holder.getView<ImageView>(R.id.iv_home_list_item_like).setOnClickListener {
-            ApiService.get().collect(this.mData[position].id)
+            ApiService.crate().collect(this.mData[position].id)
                 .enqueue(object : Callback<BaseResponse<Any>> {
                     override fun onFailure(call: Call<BaseResponse<Any>>, t: Throwable) {
                         Toast.makeText(ctx, t.message, Toast.LENGTH_SHORT).show()
