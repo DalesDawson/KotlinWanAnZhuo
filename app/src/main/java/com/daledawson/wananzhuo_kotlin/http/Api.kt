@@ -47,7 +47,7 @@ interface Api {
      * banner
      */
     @GET(HttpProvider.BANNER_LIST)
-    fun getBanner(): Observable<BaseResponse<MutableList<BannerData>>>
+    fun getBanner(): Observable<BannerData>
 
     /**
      * 登录

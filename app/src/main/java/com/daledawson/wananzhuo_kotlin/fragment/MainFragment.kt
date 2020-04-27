@@ -113,56 +113,56 @@ class MainFragment : BaseFragment() {
     }
 
     private fun getBannerList() {
-//        ApiService.get().getBanner()
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe {
-//                object : Subscriber<BannerData> {
-//                    override fun onComplete() {
-//                        Log.d("aaa", "onComplete")
-//                    }
-//
-//                    override fun onNext(t: BannerData) {
-//                        Log.d("aaa", "onNext-banner数据：" + t.toString())
-//                        bannerList = t.data
-//                        for (item in t.data) {
-//                            images.add(item.imagePath)
-//                            Log.d("url", item.imagePath)
-//                        }
-//                        home_banner.setImages(images).setImageLoader(GlideImageLoader()).start()
-//                        home_banner.start()
-//                    }
-//
-//                    override fun onError(e: Throwable) {
-//                        Log.d("aaa", "onComplete" + e.toString())
-//                    }
-//
-//                    override fun onSubscribe(s: Subscription?) {
-//                        TODO("Not yet implemented")
-//                    }
-//
-//                }
-//            }
-        Okkt.instance.Builder().setUrl(HttpProvider.BANNER_LIST)
-            .get(object : CallbackRule<BannerData> {
-                override suspend fun onSuccess(entity: BannerData, flag: String) {
+        ApiService.crate().getBanner()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<BannerData> {
+                override fun onComplete() {
+                    Log.d("aaa", "onComplete")
+                }
+
+                override fun onNext(t: BannerData) {
                     home_refreshLayout.finishRefreshing()
                     home_refreshLayout.finishRefreshing()
-                    Log.d("bbbbb", entity.toString())
-                    bannerList = entity.data
-                    for (item in entity.data) {
+                    Log.d("aaa", "onNext-banner数据：" + t.toString())
+                    bannerList = t.data
+                    for (item in t.data) {
                         images.add(item.imagePath)
                         Log.d("url", item.imagePath)
                     }
                     home_banner.setImages(images).setImageLoader(GlideImageLoader()).start()
+                    home_banner.start()
                 }
 
-                override suspend fun onFailed(error: String) {
+                override fun onError(e: Throwable) {
+                    Log.d("aaa", "onComplete" + e.toString())
                     home_refreshLayout.finishRefreshing()
+                }
+
+                override fun onSubscribe(d: Disposable) {
                 }
 
             })
     }
+//        Okkt.instance.Builder().setUrl(HttpProvider.BANNER_LIST)
+//            .get(object : CallbackRule<BannerData> {
+//                override suspend fun onSuccess(entity: BannerData, flag: String) {
+//                    home_refreshLayout.finishRefreshing()
+//                    home_refreshLayout.finishRefreshing()
+//                    Log.d("bbbbb", entity.toString())
+//                    bannerList = entity.data
+//                    for (item in entity.data) {
+//                        images.add(item.imagePath)
+//                        Log.d("url", item.imagePath)
+//                    }
+//                    home_banner.setImages(images).setImageLoader(GlideImageLoader()).start()
+//                }
+//
+//                override suspend fun onFailed(error: String) {
+//                    home_refreshLayout.finishRefreshing()
+//                }
+//
+//            })
 
     @SuppressLint
     private fun getArticleList(pageIndex: Int) {
@@ -182,9 +182,13 @@ class MainFragment : BaseFragment() {
 
                 override fun onError(e: Throwable) {
                     Log.d("---getArticleList", e.message)
+                    home_refreshLayout.finishRefreshing()
+                    home_refreshLayout.finishLoadmore()
                 }
 
                 override fun onNext(t: ArticleData) {
+                    home_refreshLayout.finishRefreshing()
+                    home_refreshLayout.finishLoadmore()
                     Log.d("---getArticleList", t.data.datas.toString())
                     Log.d("---getArticleList", "pageIndex$pageIndex")
                     if (pageIndex == 0) {
