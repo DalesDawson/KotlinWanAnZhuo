@@ -19,12 +19,11 @@ android {
         applicationId "com.daledawson.wananzhuo_kotlin"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1
+        versionCode 158426
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.release
         multiDexEnabled true
-        versionNameSuffix "10000000.22"
         dataBinding {
             enabled = true
         }
