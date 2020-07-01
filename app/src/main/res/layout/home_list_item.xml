@@ -66,6 +66,7 @@
                 android:id="@+id/iv_home_list_item_like"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
+                android:visibility="invisible"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:src="@mipmap/icon_like_select" />

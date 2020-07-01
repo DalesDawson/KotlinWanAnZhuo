@@ -94,6 +94,7 @@
                 <ImageView
                     android:id="@+id/iv_project_list_like"
                     android:layout_width="25dp"
+                    android:visibility="invisible"
                     android:layout_height="25dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"

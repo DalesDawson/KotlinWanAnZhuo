@@ -27,7 +27,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:background="@color/colorPrimary"
-                    app:title="玩安卓Kotlin"
+                    app:title="@string/app_name"
                     app:titleTextColor="@android:color/white" />
 
                 <FrameLayout

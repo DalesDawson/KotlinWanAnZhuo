@@ -19,9 +19,9 @@
         android:id="@+id/navigation_project"
         android:icon="@drawable/nav_project_icon"
         android:title="项目 " />
-    <item
-        android:id="@+id/navigation_mine"
-        android:icon="@drawable/nav_mine_icon"
-        android:title="我的 " />
+<!--    <item-->
+<!--        android:id="@+id/navigation_mine"-->
+<!--        android:icon="@drawable/nav_mine_icon"-->
+<!--        android:title="我的 " />-->
 
 </menu>
