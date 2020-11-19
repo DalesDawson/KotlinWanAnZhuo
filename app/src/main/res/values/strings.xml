@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">安卓开发百宝箱</string>
+    <string name="app_name">玩安卓Kotlin</string>
     <string name="string_test">我是测试占位符</string>
     <string name="not_login">还未登录,点击登录</string>
 </resources>
